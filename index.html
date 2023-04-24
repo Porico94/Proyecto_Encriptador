@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Challenge Encriptador</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <header>
+            
+            <h1><img src="imagenes/Logo.png" alt="Logo de Alura"></h1>
+            
+        </header>
+         
+        <div class="cajas" id="div-encriptador">
+            <textarea placeholder= "Ingrese el texto aquí" id="mensajeOriginal"></textarea>
+            
+            <p class="texto-indicador"> &#9888;Solo letras minúsculas y sin acento</p>
+
+            <div class="botones">
+                <button class="btn" id="encriptar"><span>Encriptar</span></button>
+                <button class="btn" id="desencriptar"><span>Desencriptar</span></button>
+            </div>
+
+        </div>
+
+        <div class="cajas" id="div-desencriptador">
+
+            <div id="image-container">
+                <img class="imagen-textarea2" src="imagenes/Muñeco.png" alt="Muñeco cuando no se escribe nada">
+                <img class="imagen-textarea2" src="imagenes/Mensaje-de-inicio.png" alt="Muñeco cuando no se escribe nada">
+            </div>
+
+            <textarea id="mensajeEncriptado"></textarea>
+            <button id="btn_copiar">Copiar Texto</button>
+                       
+        </div>
+
+    
+        <script src="encriptador.js"></script>
+    </body>
+
+    <footer>
+
+    </footer>
