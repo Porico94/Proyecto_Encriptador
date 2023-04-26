@@ -9,14 +9,23 @@ boton1.addEventListener('click', function() {
   const textarea1 = document.getElementById('mensajeOriginal');
   const texto1 = textarea1.value;
 
-  imagenContainer.style.display = 'none';
+  if(texto1 === ""){
+    
+    swal("No hay ningún texto!", "Por favor escribe un texto");
+    
+  } else {
+    
+    imagenContainer.style.display = 'none';
   
-  const textarea2 = document.getElementById('mensajeEncriptado');
-  textarea2.style.display = 'block';
-  botonCopiar.style.display = 'block';
-  textarea2.value = encriptador(texto1);
+    const textarea2 = document.getElementById('mensajeEncriptado');
+    textarea2.style.display = 'block';
+    botonCopiar.style.display = 'block';
+    textarea2.value = encriptador(texto1);
 
-  textarea1.value = "";
+    textarea1.value = "";
+
+  }
+  
 });
 
 //Obtener el texto del textarea1 con el boton y pegar el codigo desencriptado en el textarea2
@@ -26,10 +35,22 @@ boton2.addEventListener('click',function(){
     const textarea1 = document.getElementById('mensajeOriginal');
     const texto1 = textarea1.value;
 
-    const textarea2 = document.getElementById('mensajeEncriptado');
-    textarea2.value = desencriptar(texto1);
+    if(texto1 === ""){
 
-    textarea1.value = "";
+        swal("No hay ningún texto!", "Por favor escribe un texto");
+
+    }else{
+
+        imagenContainer.style.display = 'none';
+
+        const textarea2 = document.getElementById('mensajeEncriptado');
+        textarea2.style.display = 'block';
+    botonCopiar.style.display = 'block';
+        textarea2.value = desencriptar(texto1);
+
+        textarea1.value = "";
+
+    };    
 });
 
 //Función para copiar
