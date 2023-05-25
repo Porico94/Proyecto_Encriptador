@@ -1,146 +1,104 @@
 
-//Obtener el texto del textarea1 con el boton y pegar el codigo codificado al textarea2
-var boton1 = document.getElementById('encriptar');
-var imagenContainer = document.getElementById('image-container');
-var botonCopiar = document.getElementById('btn_copiar')
+//********** Funciones encriptar y desencriptar *************
+var texto = "Hola este es mi a e i o u";
+var array = [["a","ai"],["e","enter"],["i","imes"],["o","ober"],["u","ufat"]];
 
+function encriptador(texto){
 
-boton1.addEventListener('click', function() {
-  const textarea1 = document.getElementById('mensajeOriginal');
-  const texto1 = textarea1.value;
-
-  if(texto1 === ""){
-    
-    swal("No hay ningún texto!", "Por favor escribe un texto");
-    
-  } else {
-    
-    imagenContainer.style.display = 'none';
-  
-    const textarea2 = document.getElementById('mensajeEncriptado');
-    textarea2.style.display = 'block';
-    botonCopiar.style.display = 'block';
-    textarea2.value = encriptador(texto1);
-
-    textarea1.value = "";
-
-  }
-  
-});
-
-//Obtener el texto del textarea1 con el boton y pegar el codigo desencriptado en el textarea2
-var boton2 = document.getElementById('desencriptar');
-
-boton2.addEventListener('click',function(){
-    const textarea1 = document.getElementById('mensajeOriginal');
-    const texto1 = textarea1.value;
-
-    if(texto1 === ""){
-
-        swal("No hay ningún texto!", "Por favor escribe un texto");
-
-    }else{
-
-        imagenContainer.style.display = 'none';
-
-        const textarea2 = document.getElementById('mensajeEncriptado');
-        textarea2.style.display = 'block';
-    botonCopiar.style.display = 'block';
-        textarea2.value = desencriptar(texto1);
-
-        textarea1.value = "";
-
-    };    
-});
-
-//Función para copiar
-var boton3 = document.getElementById('btn_copiar');
-
-boton3.addEventListener('click',function(){
-    
-    const textarea2 = document.getElementById("mensajeEncriptado");
-    const texto2 = textarea2.value;
-
-    // Copiar el texto al portapapeles
-    navigator.clipboard.writeText(texto2);
-  
-    // Notificar al usuario que se ha copiado el texto
-    swal("Texto copiado!", texto2, "success");
+    for(let i = 0; i < array.length; i++){
         
-});
-  
-
-
-//Función para encriptar el mensaje
-function encriptador(mensaje){
-    
-    var array = mensaje.split("");
-    
-    for(let i = 0; i <= array.length; i++){
-        switch(array[i]){
-            case 'a':
-                array[i] = "ai";
-                break;
-            
-            case 'e':
-                array[i] = "enter";
-                break;
+        let encriptado = texto.replaceAll(array[i][0],array[i][1]);
+        texto = encriptado;
         
-            case 'i':
-                array[i] = "imes";
-                break;
-            
-            case 'o':
-                array[i] = "ober";
-                break;
-        
-            case 'u':
-                array[i] = "ufat";
-                break;
-        };
     };
 
-    let mensajeEncriptado = array.join("");
-    return mensajeEncriptado;
+    return texto;
+
 };
 
-// lineas para probar la función encriptador
-// var mensaje = "gato con botas";
-// console.log(encriptador(mensaje));
 
+function desencriptador(texto){
 
-//Función para desencriptar el mensaje
+    for(let i = array.length-1; i >= 0; i--){
+        
+        let desencriptado = texto.replaceAll(array[i][1],array[i][0]);
+        texto = desencriptado;
+        
+    };
 
-function desencriptar(mensajeEncriptado){
-    
-    let buscarA = /ai/g;
-    let vocalA = "a";
-    
-    let textoA = mensajeEncriptado.replace(buscarA, vocalA);
-    
-    let buscarE = /enter/g;
-    let vocalE = "e";
-    
-    let textoE = textoA.replace(buscarE, vocalE);
-    
-    let buscarI = /imes/g;
-    let vocalI = "i";
-    
-    let textoI = textoE.replace(buscarI, vocalI);
-    
-    let buscarO = /ober/g;
-    let vocalO = "o";
-    
-    let textoO = textoI.replace(buscarO, vocalO);
-    
-    let buscarU = /ufat/g;
-    let vocalU = "u";
-    
-    let textoU = textoO.replace(buscarU, vocalU);
-    
-    return textoU;
+    return texto;
 };
 
-// lineas para probar la función desencriptador
-// var mensajeEncriptado = "ai enter imes ober ufat";
-// console.log(desencriptar(mensajeEncriptado));
+//Obtenemos todos los elementos necesarios para activar los eventos
+
+var boton_encriptar = document.getElementById('boton_encriptar');       //Elemento del boton encriptar
+var boton_desencriptar = document.getElementById('boton_desencriptar'); //Elemento del boton desencriptar
+var boton_copiar = document.getElementById('boton_copiar');             //Elemento del boton desencriptar
+var texto1= document.getElementById('texto1');                          //Elemento del textarea1
+var texto2 = document.getElementById('texto2');                         //Elemento del textarea2
+var imagen = document.getElementById('imgMuñeco');                      //Elemento de la imagen del muñeco
+var mensaje1 = document.getElementById('mensaje_1');                    //Elemento del mensaje_1
+var mensaje2 = document.getElementById('mensaje_2');                    //Elemento del mensaje_2
+
+
+
+boton_encriptar.addEventListener('click',function(){                    //Agregamos al elemento boton_encriptar un evento la hacer click
+    
+    if(texto1.value === ""){
+    
+        swal("No hay ningún texto!", "Es necesario escribir un texto");
+        texto2.value ="";
+
+      } else {
+
+    imagen.style.display = 'none';                                      //Ocultamos la imagen del muñeco
+    mensaje1.style.display = 'none';                                    //Ocultamos el mensaje1
+    mensaje2.style.display = 'none';                                    //Ocultamos el mensaje1
+    texto2.style.display = 'block';                                     //Mostramos el textarea2
+    boton_copiar.style.display = 'block';                               //Mostramos el boton copiar
+
+    var mensaje_encriptado = encriptador(texto1.value);                 //Encriptamos el value del textarea1
+
+    texto2.value = mensaje_encriptado;                                  //Colocamos el mensaje encriptado en el textare2.value
+    texto1.value = "";                                                  //Limpiamos el texto del textarea1
+    texto2.readOnly = true;
+      };
+
+});
+
+boton_desencriptar.addEventListener('click',function(){                    //Agregamos al elemento boton_desencriptar un evento la hacer click
+    
+    if(texto1.value === ""){
+    
+        swal("No hay ningún texto!", "Es necesario escribir un texto");
+        texto2.value="";
+
+      } else {
+
+    imagen.style.display = 'none';                                      //Ocultamos la imagen del muñeco
+    mensaje1.style.display = 'none';                                    //Ocultamos el mensaje1
+    mensaje2.style.display = 'none';                                    //Ocultamos el mensaje1
+    texto2.style.display = 'block';                                     //Mostramos el textarea2
+    boton_copiar.style.display = 'block';                               //Mostramos el boton copiar
+
+    var mensaje_desencriptado = desencriptador(texto1.value);           //Desencriptamos el value del textarea1
+
+    texto2.value = mensaje_desencriptado;                               //Colocamos el mensaje encriptado en el textare2.value
+    texto1.value = "";                                                  //Limpiamos el texto del textarea1
+    texto2.readOnly = true;
+      };
+
+});
+
+//********* Copiar el textarea2 **********
+
+boton_copiar.addEventListener('click',function(){
+
+    navigator.clipboard.writeText(texto2.value);                        // Copiar el texto al portapapeles
+    swal("Texto copiado!", "" , "success");                   // Notificar al usuario que se ha copiado el texto
+    texto2.value = "";
+
+});
+
+  
+
